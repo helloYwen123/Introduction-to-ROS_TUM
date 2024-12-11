@@ -1,0 +1,9 @@
+<launch>
+<arg name ="cloud_in" default= "/semantic_pcl/semantic_pcl" />
+
+<node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">
+    <rosparam file="$(find semantic_slam)/params/octomap_params.yaml" command="load"/>
+    <remap from="/cloud_in" to="$(arg cloud_in)" />
+</node>
+
+</launch>

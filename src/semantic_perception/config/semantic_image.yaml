@@ -1,0 +1,9 @@
+# Camera intrinsic matrix parameters (OpenCV)
+camera:
+  width: 320
+  height: 240
+
+semantic_pcl:
+  color_image_topic: "/unity_ros/OurCar/Sensors/RGBCameraLeft/image_raw"
+  model_path: '/model/RedLightSeg_BigSet_Light.pth'
+  

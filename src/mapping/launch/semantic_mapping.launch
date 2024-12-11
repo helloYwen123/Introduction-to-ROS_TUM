@@ -1,0 +1,20 @@
+<launch>
+
+    <arg name="octomap_params_file" default="$(find mapping)/params/octomap_params.yaml"/>
+    <arg name="cloud_in" default="/unity_ros/OurCar/Sensors/DepthCamera/pointcloud"/>
+
+     
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+        <rosparam file="$(arg octomap_params_file)" command="load"/>
+        <remap from="/cloud_in" to="$(arg cloud_in)" />
+    </node> 
+
+    <rosparam file="$(find semantic_perception)/config/semantic_image.yaml" command="load"/>
+    <node pkg= "semantic_perception" type= "semantic_cloud.py" name="semantic_cloud_node" output="screen"/>
+
+    <node pkg= "semantic_perception" type = "red_light_detection_node" name="red_light_detection_node" output="screen"/>
+    <!--rviz-->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find mapping)/rviz_config.rviz"/> 
+    <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find mapping)/rviz_config_plan.rviz"/> -->
+    
+</launch>

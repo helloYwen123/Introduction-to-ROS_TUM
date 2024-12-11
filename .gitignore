@@ -1,0 +1,16 @@
+build/
+build_isolated/
+.vscode
+devel/
+devel_isolated/
+logs/
+.catkin_tools
+.catkin_workspace
+.idea
+
+linux(copy).txt
+RedLightSeg_WithAug_WithNoSet.pth
+pspnet_50_ade20k.pth
+RedLightSeg_BigSet.pth
+RedLightSeg_BigSet_Mit.pth
+

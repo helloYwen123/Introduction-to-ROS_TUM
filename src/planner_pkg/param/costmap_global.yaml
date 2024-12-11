@@ -1,0 +1,11 @@
+global_costmap:
+  
+  global_frame: world
+  robot_base_frame: body_forward
+  
+  update_frequency: 1.0
+  always_send_full_costmap: false
+  publish_frequency: 1.0
+  resolution: 1.0
+  
+  

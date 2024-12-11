@@ -1,0 +1,53 @@
+ <!-- <launch>
+  <arg name="depth_camera_info"              default="/unity_ros/OurCar/Sensors/DepthCamera/camera_info"/>
+  <arg name="depth_image_rect"               default="/unity_ros/OurCar/Sensors/DepthCamera/image_raw"/>
+
+  <arg name = "semantic_depth_registered_camera_info"  default="semantic_registered/depth/camera_info"/>
+  <arg name = "semantic_depth_registered_camera_rect"  default="semantic_registered/depth/image_raw"/>
+  <arg name = "semantic_camera_info" default = "/unity_ros/OurCar/Sensors/SemanticCamera/camera_info"/>
+  
+
+  <arg name= "point_cloud"   default="/color_point_cloud" />
+
+
+  <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager" />
+
+
+
+
+  <node pkg="nodelet" type="nodelet" name="register_depth_semantic" args="load depth_image_proc/register nodelet_manager">
+    
+
+    <remap from="rgb/camera_info"    to="$(arg semantic_camera_info)"/>
+    <remap from="depth/camera_info"  to="$(arg depth_camera_info)"/>
+    <remap from="depth/image_rect"   to="$(arg depth_image_rect)"/>
+
+
+    <remap from="depth_registered/camera_info"   to="$(arg semantic_depth_registered_camera_info)"/>
+    <remap from="depth_registered/image_rect"   to="$(arg semantic_depth_registered_camera_rect)"/>
+
+  </node>
+
+  <node pkg="semantic_cloud" type="AS_semantic_cloud.py" name="semantic_cloud"/>
+
+
+
+  <node pkg="merge_point_cloud" type="merge_point_cloud_node" name="merge_point_clouds" output="screen"/>
+
+
+</launch> -->
+
+<launch>
+  <arg name="name" default="OurCar" />
+  <node pkg="nodelet" type="nodelet" name="$(arg name)_nodelet_manager" args="manager" />
+
+  <node pkg="nodelet" type="nodelet" name="$(arg name)_nodelet"
+        args="load depth_image_proc/point_cloud_xyz $(arg name)_nodelet_manager">
+    <remap from="camera_info" to="/unity_ros/OurCar/Sensors/DepthCamera/camera_info"/>
+    <remap from="image_rect" to="/unity_ros/OurCar/Sensors/DepthCamera/image_raw"/>
+    <remap from="points" to="/unity_ros/OurCar/Sensors/DepthCamera/pointcloud"/>
+  </node>
+</launch>
+
+
+

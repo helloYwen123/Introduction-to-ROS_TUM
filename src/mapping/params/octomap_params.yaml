@@ -1,0 +1,27 @@
+resolution: 1
+frame_id: "world"
+base_frame_id: "true_body"
+
+height_map: true
+colored_map: true
+
+latch: false
+filter_ground: false
+ground_filter/distance: 0.01 #0.1 
+ground_filter/angle: 0.15 # 0.15  0.26
+ground_filter/plane_distance: 0.01 #1
+
+# sensor_model/hit: 0.85
+# sensor_model/miss: 0.2
+# sensor_model/min : 0.01
+# sensor_model/max : 0.99
+
+occupancy_max_z: 1.0  # 10.0 -0.0
+occupancy_min_z: -1.0  # 2.0
+
+pointcloud_max_z: 10  # 25.0
+pointcloud_min_z: -10  # 0.0
+
+# sensor_max_range: 10.0  #100.0
+sensor_model/max_range : 25.0
+# filter_speckles: false

@@ -1,0 +1,16 @@
+base_global_planner: "global_planner/GlobalPlanner"
+planner_frequency: 0.0
+planner_patience: 1.0
+
+
+GlobalPlanner:
+  use_dijkstra: true
+  use_grid_path: false
+  old_navfn_behavior: false
+  allow_unknown: true
+
+  visualize_potential: false
+  publish_potential: true
+  cost_factor: 3.0
+  orientation_mode: 1
+  orientation_window_size: 1

@@ -1,0 +1,30 @@
+<package>
+  <name>perception_msgs</name>
+  <version>1.13.1</version>
+  <description>
+    perception_msgs defines the state of traffic light
+  </description>
+  <maintainer email="xie590206@gmail.com">Wenjie Xie</maintainer>
+  <license>BSD</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  
+
+
+  <export>
+    <architecture_independent/>
+  </export>
+</package>

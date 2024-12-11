@@ -1,0 +1,90 @@
+<launch>
+  
+  <arg name= "screen_width" default="1280" />
+  <arg name= "screen_height" default="720" />
+
+  <arg name="load_params" default="true" />
+  <arg name="right_image_topic" default="/realsense/rgb/right_image_raw" />
+  <arg name="right_info_topic" default="/realsense/rgb/right_image_info" />
+  <arg name="left_image_topic" default="/realsense/rgb/left_image_raw" />
+  <arg name="left_info_topic" default="/realsense/rgb/left_image_info" />
+  <arg name="depth_image_topic" default="/realsense/depth/image" />
+  <arg name="depth_info_topic" default="/realsense/depth/camera_info" />
+  <arg name="corrupt_state_estimate" default="true" />
+  <include file="$(find simulation)/launch/unity_ros.launch" >
+    <!-- <arg name="load_params" value="$(arg load_params)" />
+    <arg name="right_image_topic" value="$(arg right_image_topic)" />
+    <arg name="right_info_topic" value="$(arg right_info_topic)" />
+    <arg name="left_image_topic" value="$(arg left_image_topic)" />
+    <arg name="left_info_topic" value="$(arg left_info_topic)" />
+    <arg name="depth_image_topic" value="$(arg depth_image_topic)" />
+    <arg name="depth_info_topic" value="$(arg depth_info_topic)" /> -->
+  </include>
+
+  <node name="Simulation" pkg="simulation" type="Car_build.x86_64" args="-screen-width $(arg screen_width) -screen-height $(arg screen_height)"/>
+
+<!-- random-walk drift factor (grows with distance traveled) (sigma / m) -->
+<!-- independent white noise -->
+<!-- average number of seconds between jumps/drift updates -->
+  <node pkg="simulation"
+        type="state_estimate_corruptor_node"
+        name="state_estimate_corruptor"
+        output="screen">
+
+    <param if="$(arg corrupt_state_estimate)" name="drift_rw_factor" value="0.001"/>
+    <param unless="$(arg corrupt_state_estimate)" name="drift_rw_factor" value="0.0"/>
+
+    
+    <param if="$(arg corrupt_state_estimate)" name="pos_white_sig" value="0.001"/>
+    <param unless="$(arg corrupt_state_estimate)" name="pos_white_sig" value="0.0"/>
+
+    
+    <param if="$(arg corrupt_state_estimate)" name="jump_seconds" value="20.0"/>
+    <param unless="$(arg corrupt_state_estimate)" name="jump_seconds" value="-1.0"/>
+  </node> 
+
+
+  <node name="w_to_unity" pkg="simulation" type="w_to_unity"/>
+  <!--node name="true_pose_node"   pkg = "simulation" type="pose_pub_node"/-->
+  <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(find simulation)/ros24.rviz"/-->
+
+  <include file ="$(find mapping)/launch/pcl_generator.launch" />
+  <include file ="$(find mapping)/launch/semantic_mapping.launch" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher"
+        name="sim_true_body"      args="0 0 0 0 0 0  true_body TrueState" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher"
+        name="sim_depth_camera"      args="0 0 0 0 0 0 depth_camera OurCar/Sensors/DepthCamera" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher"
+        name="sim_left_camera"      args="-0.05 0 0 0 0 0 camera OurCar/Sensors/RGBCameraLeft" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher"
+        name="sim_right_camera"      args="0.05 0 0 0 0 0 camera OurCar/Sensors/RGBCameraRight" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher"
+        name="camera_to_body"      args="0 0 0 0 0 -1.57 true_body camera" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher"
+      name="body_to_base"      args="0 0 0 1.57 0 0 body  base_link" />    
+
+  <node pkg="tf2_ros" type="static_transform_publisher"
+        name="depth_camera_to_body"      args="0 0 0 0 0 -1.57 true_body depth_camera" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher"
+        name="semantic_camera_frame_to_body"      args="0 0 0 0 0 -1.57 true_body OurCar/Sensors/SemanticCamera" />
+
+  
+  <node pkg="controller_pkg" type="state_estimator_node" name="state_estimator_node" />
+  <node pkg="tf2_ros" type="static_transform_publisher"
+        name="body_forward_to_body"      args="0 0 0 1.57 0 0 body body_forward" />
+
+  <node pkg="state_machine" type="state_machine.py" name="state_machine" output="screen" />
+  <node pkg="planner_pkg" type="waypoint_node" name="waypoint_node" output="screen"/>
+  <include file="$(find planner_pkg)/launch/move_base.launch" />
+  <node pkg="controller_pkg" type="controller_node" name="controller_node" />
+  
+
+
+</launch>

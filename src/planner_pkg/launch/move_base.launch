@@ -1,0 +1,16 @@
+<launch>
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      <param name="recovery_behavior_enabled" value="false" />
+      <rosparam file="$(find planner_pkg)/param/costmap_common.yaml" command="load" ns="global_costmap"/>
+      <rosparam file="$(find planner_pkg)/param/costmap_global.yaml" command="load"/> 
+      
+      <rosparam file="$(find planner_pkg)/param/costmap_common.yaml" command="load" ns="local_costmap"/>
+      <rosparam file="$(find planner_pkg)/param/costmap_local.yaml" command="load"/> 
+
+      <rosparam file="$(find planner_pkg)/param/planner_global_GP.yaml" command="load"/>
+      <rosparam file="$(find planner_pkg)/param/planner_local_TEB.yaml" command="load"/>
+
+      <param name="controller_frequency" value="20.0" />
+ </node>
+
+</launch>
