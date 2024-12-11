@@ -52,6 +52,8 @@ roslaunch simulation simulation.launch
 Traffic Light Detection: [demo_video_2.mp4](demo_video_2.mp4)
 
 Video: [demo video.mp4](demo video.mp4)
+
+Report: [report.png](./docs/report.png)
 # Rosgraph
 ![ros_node.png](./docs/ros.drawio.png)
 ![ros_node.png](./docs/node.drawio.png)
