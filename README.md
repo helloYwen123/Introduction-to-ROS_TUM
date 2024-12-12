@@ -1,11 +1,11 @@
 
 # TUM Introduction to ROS: Autonomous Driving
 
-## Description and Task
+## ⭐️ Description and Task
 This repo aims to develop a software that can navigate an autonomous vehicle in city environments. 
 
 
-## Members
+## ⭐️ Members
 * Jingyi He
 * Xinhua Wang
 * Wenjie Xie
@@ -13,7 +13,7 @@ This repo aims to develop a software that can navigate an autonomous vehicle in 
 * Lingyue Zhao
 
 
-## Prerequisites and Running
+## 💡 Prerequisites and Running
 
 * Ubuntu 20.04
 * ROS Noetic
@@ -75,7 +75,7 @@ Report: [report.png](./docs/Report.png)
 [x] Own Msg: perception_msgs/LightState.msg
 
 [x] Successfully adding state estimator to mitigate measurement noise
-# Modules
+# 💡 Modules
 ## Perception
 This module first projects the depth image onto a 3D point cloud. The point clouds from the depth cameras are then used to generate an OctoMap, which is subsequently projected into a 2D map. The 2D map is used by the planning module for obstacle avoidance.
 
