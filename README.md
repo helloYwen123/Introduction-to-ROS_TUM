@@ -2,7 +2,8 @@
 # TUM Introduction to ROS: Autonomous Driving
 
 ## ⭐️ Description and Task
-This repo aims to develop a software that can navigate an autonomous vehicle in city environments. 
+This is the repo for group project autonomous driving of team 16 the lecture Introduction to ROS from Technical University of Munich in summer semester 2024.
+It aims to develop a software that can navigate an autonomous vehicle in city environments. 
 
 
 ## ⭐️ Members
