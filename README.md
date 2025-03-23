@@ -46,8 +46,8 @@ Then launch simulation
 ```shell
 roslaunch simulation simulation.launch
 ```
-
-
+***Note*** : In our perception pipeline, we chose `Labelme`, a widely-used annotation tool, to prepare the segmentation dataset for post-training. We then converted the annotations using the script provided in [labelme2VOC](./labelme2voc).
+ 
 ### 
 # Result Presentation
 Traffic Light Detection: [demo_video_2.mp4]
