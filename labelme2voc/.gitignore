@@ -1,0 +1,9 @@
+.idea
+venv
+out
+Raw_Picture/
+Small_size_set/
+test/
+train/
+val/
+
